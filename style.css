@@ -1,0 +1,171 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Fredoka', 'Nunito', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Hide floating bubbles that go out of bounds */
+    position: relative;
+}
+
+/* Bubble Container for floating images */
+#bubble-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Let clicks pass through */
+    z-index: 1; /* Below the calculator, or above? Floating around it is nice */
+}
+
+.bubble {
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1), inset 0 0 20px rgba(255,255,255,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    /* initial state before animation */
+    bottom: -150px;
+    opacity: 0;
+    animation: floatUp 4s ease-in forwards;
+}
+
+.bubble img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* or contain depending on user's exact photos, cover works best for full circle */
+    border-radius: 50%;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) scale(0.5) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+        transform: translateY(-5vh) scale(1) rotate(10deg);
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-110vh) scale(1.2) rotate(-20deg);
+        opacity: 0;
+    }
+}
+
+/* Calculator UI */
+.calculator {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 350px;
+    z-index: 10; /* Above the bubbles */
+    position: relative;
+}
+
+.display {
+    margin-bottom: 25px;
+}
+
+#calc-display {
+    width: 100%;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    border-radius: 20px;
+    font-size: 3rem;
+    text-align: right;
+    padding: 10px 20px;
+    color: #333;
+    box-shadow: inset 0 4px 10px rgba(0,0,0,0.05);
+    font-family: 'Fredoka', sans-serif;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.btn {
+    border: none;
+    outline: none;
+    height: 65px;
+    border-radius: 20px;
+    font-size: 1.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.6);
+    color: #444;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.btn.operator {
+    background: #ffb6b9;
+    color: #fff;
+    font-size: 2rem;
+}
+
+.btn.operator:hover {
+    background: #ff9a9e;
+}
+
+.btn.clear {
+    background: #fbc2eb;
+    color: #fff;
+}
+
+.btn.clear:hover {
+    background: #f6a1d8;
+}
+
+.btn.equal {
+    background: #a1c4fd;
+    color: #fff;
+    grid-column: 4;
+    grid-row: 3 / span 3;
+    height: 100%;
+    font-size: 2.5rem;
+}
+
+.btn.equal:hover {
+    background: #8fd3f4;
+}
+
+.btn.zero {
+    grid-column: 1 / span 2;
+    border-radius: 20px;
+    width: 100%;
+}
